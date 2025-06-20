@@ -31,24 +31,26 @@ services:
       - gogo-net
 
   jenkins:
-    image: jenkins/jenkins:lts
+    build:
+      context: ../smart-retail-config/jenkins  # 👈 הנתיב היחסי לקובץ Dockerfile
     container_name: gogo-jenkins
     restart: unless-stopped
+    user: root
     ports:
-      - "8081:8080"      # Jenkins UI
-      - "50000:50000"    # Jenkins agents (optional)
+      - "8081:8080"       # Jenkins UI
+      - "50000:50000"     # Jenkins agents
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     volumes:
-      - jenkins-data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock  # Enables docker build from Jenkins
+      - ./jenkins_data:/var/jenkins_home        # שומר את הגדרות Jenkins
+      - /var/run/docker.sock:/var/run/docker.sock  # גישה ל־Docker מה-container
+    privileged: true
     networks:
       - gogo-net
 
 volumes:
   pgdata:
   pgadmin-data:
-  jenkins-data:
 
 networks:
   gogo-net:
