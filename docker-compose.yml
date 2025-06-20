@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: gogo-main-db-1
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 12345678
+      POSTGRES_DB: shop_inventory
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - gogo-net
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: gogo-pgadmin
+    restart: always
+    ports:
+      - "5050:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks:
+      - gogo-net
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: gogo-jenkins
+    restart: unless-stopped
+    ports:
+      - "8081:8080"      # Jenkins UI
+      - "50000:50000"    # Jenkins agents (optional)
+    environment:
+      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
+    volumes:
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # Enables docker build from Jenkins
+    networks:
+      - gogo-net
+
+volumes:
+  pgdata:
+  pgadmin-data:
+  jenkins-data:
+
+networks:
+  gogo-net:
+    driver: bridge
