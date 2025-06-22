@@ -32,18 +32,20 @@ services:
 
   jenkins:
     build:
-      context: ../smart-retail-config/jenkins  # 👈 הנתיב היחסי לקובץ Dockerfile
+      context: ../smart-retail-config/jenkins
+      dockerfile: Dockerfile
     container_name: gogo-jenkins
     restart: unless-stopped
     user: root
     ports:
-      - "8081:8080"       # Jenkins UI
-      - "50000:50000"     # Jenkins agents
+      - "8081:8080"         # Jenkins UI
+      - "50000:50000"       # Agent communication
     environment:
       - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
     volumes:
-      - ./jenkins_data:/var/jenkins_home        # שומר את הגדרות Jenkins
-      - /var/run/docker.sock:/var/run/docker.sock  # גישה ל־Docker מה-container
+      - ./jenkins_data:/var/jenkins_home            # שומר את ה־Jenkins state
+      - /var/run/docker.sock:/var/run/docker.sock   # כדי להריץ docker מתוך Jenkins
+      - ../smart-retail-config/kubeconfig:/root/.kube/config  # kubeconfig חיבור ל־minikube
     privileged: true
     networks:
       - gogo-net
