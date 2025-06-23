@@ -15,4 +15,4 @@ COPY . .
 EXPOSE 5000
 
 # Run Flask directly
-CMD ["python", "app.py"]
+CMD ["python", "app.py"]# comment
