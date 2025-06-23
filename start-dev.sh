@@ -12,4 +12,6 @@ kubectl port-forward -n prometheus service/prometheus 9090:9090 &
 kubectl port-forward -n prometheus service/grafana 3001:3000 &
 kubectl port-forward -n prometheus service/alertmanager 9093:9093 &
 
+kubectl port-forward service/argocd-server -n argocd 8080:443
+
 echo "✅ All services are being forwarded!"
