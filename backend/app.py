@@ -37,12 +37,39 @@ def after_request(response):
         REQUEST_COUNTER.labels(method=request.method, endpoint=request.path, status=str(response.status_code)).inc()
         REQUEST_LATENCY.labels(method=request.method, endpoint=request.path).observe(duration)
     except Exception:
+        # Log the exception for debugging purposes, but don't fail the request
+        app.logger.exception("Error in after_request for Prometheus metrics")
         pass
     return response
 
 @app.route('/metrics')
 def metrics():
+    """Endpoint for Prometheus metrics."""
     return Response(generate_latest(REGISTRY), mimetype=CONTENT_TYPE_LATEST)
+
+# ---------- Health Check Endpoints (Optional but Recommended) ----------
+@app.route('/health', methods=['GET'])
+def health_check():
+    """
+    Basic health check endpoint.
+    Checks if the Flask app is running and can connect to the database.
+    """
+    try:
+        # Attempt a simple query to check database connectivity
+        db.session.execute(text("SELECT 1"))
+        return jsonify({"status": "healthy", "database": "connected"}), 200
+    except Exception as e:
+        app.logger.error(f"Health check failed: {e}")
+        return jsonify({"status": "unhealthy", "database": "disconnected", "error": str(e)}), 500
+
+@app.route('/ready', methods=['GET'])
+def readiness_check():
+    """
+    Readiness probe endpoint.
+    Indicates if the application is ready to accept traffic.
+    This can be simpler than /health if you only want to check the app's startup.
+    """
+    return jsonify({"status": "ready"}), 200
 
 # ---------- USER API ----------
 
