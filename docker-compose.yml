@@ -1,4 +1,3 @@
-# Use version 3.8 of Docker Compose file format
 version: '3.8'
 
 services:
@@ -14,9 +13,9 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - pgdata:/var/lib/postgresql/data # Volume for persistent DB data
+      - pgdata:/var/lib/postgresql/data
     networks:
-      - gogo-net # All services here connect to this primary 'gogo-net'
+      - gogo-net
 
   # pgAdmin 4 service
   pgadmin:
@@ -29,22 +28,34 @@ services:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com
       PGADMIN_DEFAULT_PASSWORD: admin123
     volumes:
-      - pgadmin-data:/var/lib/pgadmin # Volume for persistent pgAdmin data
+      - pgadmin-data:/var/lib/pgadmin
     networks:
       - gogo-net
 
   # Main Backend service
-  # The build context points to the 'backend' subdirectory relative to this docker-compose.yml.
   backend:
     build:
-      context: ./backend # Points to: .../smart-retail-dev/backend/
+      context: ./backend
     container_name: gogo-backend
+    restart: unless-stopped
     ports:
       - "5001:5000"
     environment:
       - DATABASE_URL=postgresql://postgres:12345678@db:5432/shop_inventory
     depends_on:
-      - db # Ensure DB starts before backend
+      - db
+    networks:
+      - gogo-net
+
+  # Main Frontend service
+  frontend:
+    image: rani19/gogo-main-frontend:latest
+    container_name: gogo-main-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_URL=http://gogo-backend:5000/api
     networks:
       - gogo-net
 
@@ -54,7 +65,7 @@ services:
     container_name: gogo-dr-backend
     restart: unless-stopped
     ports:
-      - "5002:5000" # DR Backend exposed on host port 5002
+      - "5002:5000"
     environment:
       - DATABASE_URL=postgresql://postgres:12345678@db:5432/shop_inventory
     networks:
@@ -66,18 +77,16 @@ services:
     container_name: gogo-dr-frontend
     restart: unless-stopped
     ports:
-      - "3002:80" # DR Frontend exposed on host port 3002
+      - "3002:80"
+    environment:
+      - VITE_API_URL=http://gogo-dr-backend:5000/api
     networks:
       - gogo-net
 
-# Define Docker volumes for persistent data
 volumes:
-  pgdata: # For PostgreSQL data
-  pgadmin-data: # For pgAdmin data
+  pgdata:
+  pgadmin-data:
 
-# Define the single custom bridge network for all services
 networks:
   gogo-net:
-    # Changed from 'driver: bridge' to 'external: true'
-    # This tells Docker Compose to connect to a network that already exists and is named 'gogo-net'.
     external: true

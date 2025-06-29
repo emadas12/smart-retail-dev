@@ -14,10 +14,14 @@ if [ -f "$PID_FILE" ]; then
   rm -f "$PID_FILE"
 fi
 
-echo "🚀 Starting port-forwarding for all services..."
+echo "🚀 Starting port-forwarding for remaining Kubernetes services..."
 
-kubectl port-forward service/backend 5000:5000 -n default > /dev/null 2>&1 &
-kubectl port-forward service/frontend 3000:80 -n default > /dev/null 2>&1 &
+# --- REMOVE OR COMMENT OUT THESE LINES ---
+ kubectl port-forward service/backend 5000:5000 -n default > /dev/null 2>&1 &
+# kubectl port-forward service/frontend 3000:80 -n default > /dev/null 2>&1 &
+# ---------------------------------------
+
+# Keep these if you still need to access them directly via kubectl port-forward
 kubectl port-forward service/pgadmin 5050:80 -n default > /dev/null 2>&1 &
 kubectl port-forward -n prometheus service/prometheus 9090:9090 > /dev/null 2>&1 &
 kubectl port-forward -n prometheus service/grafana 3001:3000 > /dev/null 2>&1 &
@@ -28,4 +32,4 @@ kubectl port-forward svc/argocd-server -n argocd 8080:443 > /dev/null 2>&1 &
 ARGO_PID=$!
 echo "📌 ArgoCD port-forward PID: $ARGO_PID"
 
-echo "✅ All port-forwarding processes are now running."
+echo "✅ All required port-forwarding processes are now running."
