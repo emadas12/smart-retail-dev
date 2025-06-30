@@ -135,16 +135,31 @@ docker run -p 5000:5000 -e DATABASE_URL=<your_postgres_url> rani19/backend
 ## 🗂️ Repository Structure
 
 ```txt
-smart-retail-dev/
-├── backend/             # Flask API backend
-├── frontend/            # React frontend
-├── docker-compose.yml   # Local environment stack
-├── k8s/                 # Kubernetes manifests
-├── Jenkins_Backend/     # Jenkinsfile for backend CI/CD
-├── Jenkins_Frontend/    # Jenkinsfile for frontend CI/CD
-├── scripts/             # DR automation and failover scripts
-├── logs/                # Logs for failover monitoring
-└── README.md
+├── backend/               # Flask backend (API, models, config)
+│   ├── app.py             # Main application with all routes
+│   ├── models.py          # SQLAlchemy models: Product, RestockLog, etc.
+│   ├── app_config.py      # Configuration (DB, ENV, etc.)
+│   ├── requirements.txt   # Python dependencies
+│   ├── Dockerfile         # Backend Docker image definition
+│   └── seed.py            # Optional: seed initial DB data
+│
+├── frontend/              # React + TypeScript frontend
+│   ├── src/               # Main source code (components, pages, logic)
+│   ├── public/            # Static assets
+│   ├── package.json       # Frontend dependencies
+│   ├── vite.config.ts     # Vite dev/build config
+│   ├── tailwind.config.ts # Tailwind CSS settings
+│   └── Dockerfile         # Frontend Docker image
+│
+├── scripts/               # DevOps & monitoring scripts
+│   ├── start-dev.sh       # Port forwarding & startup
+│   ├── failover-check.sh  # Failover logic between primary/DR
+│   └── auto-forward.sh    # Auto forward ports on startup
+│
+├── docker-compose.yml     # Orchestrates full app (frontend + backend + db)
+├── README.md              # Project documentation
+└── jenkins_data/          # Jenkins persistent data (volume bind)
+
 ```
 
 ---
