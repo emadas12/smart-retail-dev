@@ -71,19 +71,6 @@ def readiness_check():
     """
     return jsonify({"status": "ready"}), 200
 
-# ---------- TEST ENDPOINT FOR 5XX ALERTS (TEMPORARY!) ----------
-@app.route('/api/test/trigger-500', methods=['GET'])
-def test_500_error_trigger():
-    """
-    Temporarily added endpoint to intentionally trigger a 500 Internal Server Error
-    for Prometheus alert testing. REMOVE THIS AFTER TESTING!
-    """
-    app.logger.error("Simulating a 500 error for alert testing!")
-    # Raising an unhandled exception will cause Flask to return a 500 status code
-    raise Exception("This is an intentional 500 error for Prometheus alert testing!")
-    # The return statement below will not be reached due to the exception
-    # return jsonify({"message": "This should not be reached"}), 200
-
 # ---------- USER API ----------
 
 @app.route('/api/user/products', methods=['GET'])
