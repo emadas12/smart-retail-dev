@@ -1,30 +1,29 @@
 
-<h1 align="center">🛍️ Smart Retail Inventory System</h1>
+````markdown
+# Smart Retail Inventory System
 
-<p align="center">
-  <strong>Real-time inventory management, analytics, and disaster recovery system</strong><br>
-  Built with <code>Flask</code>, <code>PostgreSQL</code>, <code>Docker</code>, <code>Kubernetes</code>, <code>Prometheus</code>, and <code>Jenkins</code>
-</p>
-
----
-
-## ✨ Features
-
-- 📦 <strong>Inventory Management</strong> – Full CRUD API using Flask + PostgreSQL
-- 🔁 <strong>Restocking Operations</strong> – Track restock events with audit trail
-- ⚠️ <strong>Low‑Stock Alerts</strong> – Automatically flag items below threshold
-- 📊 <strong>Analytics & Trends</strong> – Visualize inventory movement and trends
-- 🛒 <strong>Purchase Flow</strong> – Deduct stock in real-time after purchase
-- 🐳 <strong>Containerized</strong> – Docker-first approach with `docker-compose`
-- ☁️ <strong>Cloud‑Ready</strong> – Kubernetes manifests + ArgoCD GitOps support
-- 📈 <strong>Monitoring</strong> – Prometheus metrics & Grafana dashboards
-- 🚀 <strong>CI/CD</strong> – Jenkins-based automated pipeline
+**Real-time inventory management, analytics, and disaster recovery system**<br>
+Built with `Flask`, `PostgreSQL`, `Docker`, `Kubernetes`, `Prometheus`, and `Jenkins`
 
 ---
 
-## 🧱 Tech Stack
+## Features
 
-| 🧩 Layer            | ⚙️ Technology                                      |
+* **Inventory Management** – Full CRUD API using Flask + PostgreSQL
+* **Restocking Operations** – Track restock events with audit trail
+* **Low-Stock Alerts** – Automatically flag items below threshold
+* **Analytics & Trends** – Visualize inventory movement and trends
+* **Purchase Flow** – Deduct stock in real-time after purchase
+* **Containerized** – Docker-first approach with `docker-compose`
+* **Cloud-Ready** – Kubernetes manifests + ArgoCD GitOps support
+* **Monitoring** – Prometheus metrics & Grafana dashboards
+* **CI/CD** – Jenkins-based automated pipeline
+
+---
+
+## Tech Stack
+
+| Layer            | Technology                                      |
 |--------------------|---------------------------------------------------|
 | API                | Python 3.9 · Flask · Flask-RESTful               |
 | Database           | PostgreSQL                                        |
@@ -36,11 +35,11 @@
 
 ---
 
-## ⚡ Quick Start
+## Quick Start
 
 ```bash
 # Clone the repository
-git clone https://github.com/RaniSaed/smart-retail-dev.git
+git clone [https://github.com/RaniSaed/smart-retail-dev.git](https://github.com/RaniSaed/smart-retail-dev.git)
 cd smart-retail-dev/backend
 
 # Set up Python environment
@@ -49,11 +48,11 @@ pip install -r requirements.txt
 
 # Run the API
 python app.py  # visit: http://localhost:5000
-```
+````
 
----
+-----
 
-## 🐳 Docker Setup
+## Docker Setup
 
 ```bash
 # Build backend image
@@ -66,63 +65,62 @@ docker run -p 5000:5000 rani19/backend
 docker-compose up
 ```
 
----
+-----
 
-## 📡 API Reference
+## API Reference
 
-### ▸ Inventory
+### Inventory
 
 | Method | Endpoint                                  | Description                         |
 |--------|-------------------------------------------|-------------------------------------|
 | GET    | /api/products                             | Get all products                    |
 | POST   | /api/products                             | Add a new product                   |
-| GET    | /api/products/<id>                        | Get a specific product              |
-| PUT    | /api/products/<id>                        | Update a specific product           |
-| DELETE | /api/products/<id>                        | Delete a product                    |
-| POST   | /api/products/<id>/restock                | Restock a product                   |
+| GET    | /api/products/\<id\>                        | Get a specific product              |
+| PUT    | /api/products/\<id\>                        | Update a specific product           |
+| DELETE | /api/products/\<id\>                        | Delete a product                    |
+| POST   | /api/products/\<id\>/restock                | Restock a product                   |
 | GET    | /api/products/low-stock                   | Get low-stock products              |
 | GET    | /api/restocks                             | Get latest restock logs             |
 | GET    | /api/dashboard/summary                    | Get dashboard summary               |
 | GET    | /health                                   | App health check                    |
 | GET    | /metrics                                  | Prometheus metrics endpoint         |
 
-
-### ▸ Restocking
+### Restocking
 
 | Method | Endpoint                     | Description           |
 |--------|------------------------------|-----------------------|
-| POST   | /api/products/<id>/restock   | Add stock quantity    |
+| POST   | /api/products/\<id\>/restock   | Add stock quantity    |
 
-### ▸ Analytics
+### Analytics
 
 | Method | Endpoint                        | Description          |
 |--------|----------------------------------|----------------------|
 | GET    | /api/products/low-stock         | Get low stock items  |
 | GET    | /api/analytics/stock-trends     | Get stock trends     |
 
-> 🔐 Metrics available at `/metrics` for Prometheus scraping.
+Metrics are available at `/metrics` for Prometheus scraping.
 
----
+-----
 
-## 🚀 Deployment
+## Deployment
 
-### ☸️ Kubernetes
+### Kubernetes
 
 ```bash
 kubectl apply -f k8s/
 kubectl get all -l app=smart-retail-backend
 ```
 
-### ☁️ AWS EC2 (Demo)
+### AWS EC2 (Demo)
 
 ```bash
 docker pull rani19/backend:latest
 docker run -p 5000:5000 -e DATABASE_URL=<your_postgres_url> rani19/backend
 ```
 
----
+-----
 
-## 📊 Monitoring & Observability
+## Monitoring & Observability
 
 | Metric            | Source              | Grafana Panel        |
 |-------------------|---------------------|-----------------------|
@@ -130,9 +128,9 @@ docker run -p 5000:5000 -e DATABASE_URL=<your_postgres_url> rani19/backend
 | CPU / Memory      | Node Exporter       | `Container Resources` |
 | Low-stock alerts  | Custom Exporter     | `Inventory Health`    |
 
----
+-----
 
-## 🗂️ Repository Structure
+## Repository Structure
 
 ```txt
 ├── backend/               # Flask backend (API, models, config)
@@ -159,8 +157,7 @@ docker run -p 5000:5000 -e DATABASE_URL=<your_postgres_url> rani19/backend
 ├── docker-compose.yml     # Orchestrates full app (frontend + backend + db)
 ├── README.md              # Project documentation
 └── jenkins_data/          # Jenkins persistent data (volume bind)
-
 ```
 
----
-
+```
+```
