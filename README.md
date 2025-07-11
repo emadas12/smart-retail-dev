@@ -1,10 +1,7 @@
-
----
-
 ````markdown
 # Smart Retail Inventory System
 
-Real-time inventory management with analytics, restock automation, and disaster recovery  
+A production-grade system for real-time inventory management, purchasing workflow, and automated disaster recovery — powered by modern DevOps tooling.  
 Built with `Flask`, `React`, `PostgreSQL`, `Docker`, `Kubernetes`, `Jenkins`, `Prometheus`, and `Grafana`.
 
 ---
@@ -48,7 +45,7 @@ python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 
 python app.py  # Run on http://localhost:5000
-````
+```
 
 ---
 
@@ -126,12 +123,12 @@ kubectl get all -l app=smart-retail-backend
 
 Jenkinsfile stages:
 
-1. Clone Dev & Config repositories
-2. Build Docker image
-3. Push to Docker Hub (`rani19/backend`)
-4. Update Kubernetes manifests
-5. Commit & push changes
-6. Trigger ArgoCD sync via GitOps
+1. Clone Dev & Config repositories  
+2. Build Docker image  
+3. Push to Docker Hub (`rani19/backend`)  
+4. Update Kubernetes manifests  
+5. Commit & push changes  
+6. Trigger ArgoCD sync via GitOps  
 
 > Pipelines are stored under `Jenkins_Backend/Jenkinsfile` and `Jenkins_Frontend/Jenkinsfile`
 
@@ -167,21 +164,16 @@ smart-retail-dev/
 
 ## Useful Links
 
-* Dev Repository: [https://github.com/RaniSaed/smart-retail-dev](https://github.com/RaniSaed/smart-retail-dev)
-* Config Repository: [https://github.com/RaniSaed/smart-retail-config](https://github.com/RaniSaed/smart-retail-config)
+* Dev Repository: [https://github.com/RaniSaed/smart-retail-dev](https://github.com/RaniSaed/smart-retail-dev)  
+* Config Repository: [https://github.com/RaniSaed/smart-retail-config](https://github.com/RaniSaed/smart-retail-config)  
 * Docker Hub: [https://hub.docker.com/u/rani19](https://hub.docker.com/u/rani19)
-* Grafana Dashboards: [http://localhost:3001](http://localhost:3001) (login: admin/admin)
 
 ---
 
 ## Author
 
-Rani Saed
-DevOps Engineer | Cloud & Kubernetes Enthusiast
-Email: [Rani.saed19@gmail.com](mailto:Rani.saed19@gmail.com)
+Rani Saed  
+DevOps Engineer | Cloud & Kubernetes Enthusiast  
+Email: [Rani.saed19@gmail.com](mailto:Rani.saed19@gmail.com)  
 LinkedIn: [https://www.linkedin.com/in/rani-saed](https://www.linkedin.com/in/rani-saed)
-
-```
-
----
-
+````
