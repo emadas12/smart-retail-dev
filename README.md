@@ -132,7 +132,7 @@ The Smart Retail Inventory System exposes a comprehensive RESTful API for managi
 
 -----
 
-## 🌐 Kubernetes Deployment
+##  Kubernetes Deployment
 
 Deploy the Smart Retail Inventory System to a Kubernetes cluster for scalable and resilient operations.
 
@@ -145,7 +145,7 @@ kubectl get all -l app=smart-retail-backend
 
 -----
 
-## 📊 Monitoring & Alerting
+##  Monitoring & Alerting
 
 The system integrates robust monitoring and alerting solutions to ensure high availability and proactive issue detection.
 
@@ -159,7 +159,7 @@ The system integrates robust monitoring and alerting solutions to ensure high av
 
 -----
 
-## 🔄 CI/CD Pipeline (Jenkins)
+##  CI/CD Pipeline (Jenkins)
 
 Automated continuous integration and deployment are handled by Jenkins, ensuring a smooth and efficient development workflow.
 
@@ -180,7 +180,7 @@ The `Jenkinsfile` defines the following stages:
 
 -----
 
-## 📂 Repository Structure
+##  Repository Structure
 
 ```
 smart-retail-dev/
@@ -208,7 +208,7 @@ smart-retail-dev/
 
 -----
 
-## 🔗 Useful Links
+##  Useful Links
 
   * **Development Repository**: [https://github.com/RaniSaed/smart-retail-dev](https://github.com/RaniSaed/smart-retail-dev)
   * **Configuration Repository**: [https://github.com/RaniSaed/smart-retail-config](https://github.com/RaniSaed/smart-retail-config)
@@ -216,7 +216,7 @@ smart-retail-dev/
 
 -----
 
-## 👨‍💻 Author
+##  Author
 
 **Rani Saed**
 DevOps Engineer | Cloud & Kubernetes Enthusiast
