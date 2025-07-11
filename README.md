@@ -2,24 +2,23 @@
 
 ---
 
-**Real-time inventory control platform for modern retail**  
-Empowering businesses with analytics, automation, and disaster recovery.
+**A cloud-native inventory control platform for modern retail**  
+Delivering real-time visibility, analytics, automated restocking, and built-in disaster recovery.
 
-Built using **Flask**, **React**, **PostgreSQL**, **Docker**, **Kubernetes**, **Jenkins**, **Prometheus**, and **Grafana** — delivering performance, scalability, and full DevOps integration.
+Built using **Flask**, **React**, **PostgreSQL**, **Docker**, **Kubernetes**, **Prometheus**, and **Grafana** — for a scalable, resilient, and developer-friendly architecture.
 
 ---
 
 ## Features
 
-- **Inventory API** – Full CRUD operations for managing products with Flask + PostgreSQL  
-- **Restocking Automation** – Intelligent system with audit logs for every restock event  
-- **Low-Stock Detection** – Alerts for items under threshold to avoid inventory shortages  
-- **Analytics Dashboard** – Track stock trends and product movement over time  
-- **Integrated Purchase Flow** – Automatically deduct stock on every product purchase  
-- **Dockerized Architecture** – Portable setup via Docker & Docker Compose  
-- **Cloud-Native Deployments** – Kubernetes manifests with GitOps via ArgoCD  
-- **Monitoring & Alerts** – Prometheus for metrics, Grafana for dashboards  
-- **CI/CD Pipelines** – Automated Jenkins flow: build, push, deploy
+- **Inventory API** – CRUD operations for product management using Flask and PostgreSQL  
+- **Restocking Automation** – Logs and tracks each stock update with audit trail  
+- **Low-Stock Alerts** – Flags items that fall below defined thresholds  
+- **Analytics Dashboard** – Visualizes inventory trends and product movement  
+- **Purchase Workflow** – Deducts stock upon purchase in real time  
+- **Dockerized Architecture** – Full container support via Docker & Compose  
+- **Cloud-Native Deployment** – Kubernetes-ready with manifests and GitOps support  
+- **Monitoring & Alerts** – Prometheus metrics, Grafana dashboards, and custom alerts
 
 ---
 
@@ -31,30 +30,26 @@ Built using **Flask**, **React**, **PostgreSQL**, **Docker**, **Kubernetes**, **
 | Frontend           | React · TypeScript · Tailwind CSS · React Query          |
 | Database           | PostgreSQL                                               |
 | Containerization   | Docker · Docker Compose                                  |
-| Orchestration      | Kubernetes (Minikube) · ArgoCD (GitOps)                  |
-| Cloud Platform     | AWS EC2 (Disaster Recovery ready)                        |
+| Orchestration      | Kubernetes (Minikube)                                    |
 | Monitoring         | Prometheus · Grafana · Alertmanager                      |
-| CI/CD              | Jenkins (Dockerized)                                     |
 
 ---
 
 ## Quick Start (Development)
-
-Follow these steps to get the backend running locally:
 
 ```bash
 # 1. Clone the repository
 git clone https://github.com/RaniSaed/smart-retail-dev.git
 cd smart-retail-dev/backend
 
-# 2. Set up a Python virtual environment
+# 2. Set up Python environment
 python3 -m venv venv
 source venv/bin/activate
 
 # 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Run the Flask server
+# 4. Start the API server
 python app.py  # Visit: http://localhost:5000
 ```
 
@@ -62,169 +57,126 @@ python app.py  # Visit: http://localhost:5000
 
 ## Docker Setup
 
-Use Docker for consistent local and production environments.
-
-### Run Backend Only
+### Backend Only
 
 ```bash
 docker build -t rani19/backend .
 docker run -p 5000:5000 rani19/backend
 ```
 
-### Run Full Stack
+### Full Stack with Docker Compose
 
 ```bash
 docker-compose up
 ```
 
-This will launch:
-- Backend API (Flask)
+Services included:
+- Flask backend (API)
 - PostgreSQL database
-- Frontend (React)
-- pgAdmin for DB management
+- React frontend (User Panel)
+- pgAdmin (Database GUI)
 
 ---
 
-
-### Full Stack with Docker Compose
-
-Deploy the entire application stack (backend, frontend, database, and pgAdmin) using Docker Compose:
-
-```bash
-docker-compose up
-```
-
------
-
-## ⚙️ API Reference
-
-The Smart Retail Inventory System exposes a comprehensive RESTful API for managing products and inventory.
+## API Reference
 
 ### `/api/products`
 
 | Method | Description                       |
-| :----- | :-------------------------------- |
-| `GET`  | Retrieve a list of all products.  |
-| `POST` | Add a new product to the inventory. |
+|--------|-----------------------------------|
+| GET    | Retrieve all products             |
+| POST   | Create a new product              |
 
 ### `/api/products/<id>`
 
-| Method   | Description                               |
-| :------- | :---------------------------------------- |
-| `GET`    | Retrieve a specific product by its ID.    |
-| `PUT`    | Update an existing product by its ID.     |
-| `DELETE` | Remove a product from the inventory by its ID. |
+| Method | Description                          |
+|--------|--------------------------------------|
+| GET    | Get product details by ID            |
+| PUT    | Update product information by ID     |
+| DELETE | Remove product from inventory by ID  |
 
 ### `/api/products/<id>/restock`
 
-| Method | Description                                  |
-| :----- | :------------------------------------------- |
-| `POST` | Record a restock event and update the quantity for a product. |
+| Method | Description                                |
+|--------|--------------------------------------------|
+| POST   | Add restock quantity and log the event     |
 
-### Analytics & Monitoring Endpoints
+### Analytics & Monitoring
 
-| Endpoint                      | Description                                   |
-| :---------------------------- | :-------------------------------------------- |
-| `/api/products/low-stock`     | Get a list of all products currently low on stock. |
-| `/api/analytics/stock-trends` | Access data for visualizing product stock trends over time. |
-| `/metrics`                    | Prometheus metrics endpoint for monitoring.   |
-| `/health`                     | Application health check endpoint.            |
+| Endpoint                      | Description                               |
+|-------------------------------|-------------------------------------------|
+| `/api/products/low-stock`     | List of low-stock products                |
+| `/api/analytics/stock-trends` | Inventory trend data                      |
+| `/metrics`                    | Prometheus metrics for monitoring         |
+| `/health`                     | Health check endpoint                     |
 
------
+---
 
-##  Kubernetes Deployment
-
-Deploy the Smart Retail Inventory System to a Kubernetes cluster for scalable and resilient operations.
+## Kubernetes Deployment
 
 ```bash
 kubectl apply -f k8s/
 kubectl get all -l app=smart-retail-backend
 ```
 
-**Note**: This deployment includes Kubernetes `Deployments`, `Services`, `ConfigMaps`, and `Ingress` resources, providing a complete application setup.
+This deploys:
+- Deployments
+- Services
+- ConfigMaps
+- Ingress resources
 
------
+---
 
-##  Monitoring & Alerting
+## Monitoring & Alerting
 
-The system integrates robust monitoring and alerting solutions to ensure high availability and proactive issue detection.
+| Component         | Tool            | Description                                     |
+|-------------------|------------------|-------------------------------------------------|
+| API Metrics       | Prometheus       | Monitors request count, latency, and errors     |
+| System Metrics    | Node Exporter    | Tracks CPU, memory, and disk usage              |
+| Low-Stock Alerts  | Custom Exporter  | Detects when stock is below threshold           |
+| Dashboards        | Grafana          | Visualizes metrics via interactive panels       |
+| Notifications     | Alertmanager     | Sends email alerts for critical conditions      |
 
-| Component          | Tool            | Description                                                    |
-| :----------------- | :---------------- | :------------------------------------------------------------- |
-| **API Metrics** | Prometheus      | Tracks API request rates, latency, and error rates.            |
-| **Resource Usage** | Node Exporter   | Monitors underlying server resources like CPU, memory, and disk I/O. |
-| **Inventory Alerts** | Custom Exporter | Triggers custom alerts specifically for low-stock conditions.  |
-| **Dashboards** | Grafana         | Provides interactive and insightful visual panels for all metrics. |
-| **Alerts** | Alertmanager    | Manages and dispatches notifications (e.g., email) for critical alerts. |
+---
 
------
-
-##  CI/CD Pipeline (Jenkins)
-
-Automated continuous integration and deployment are handled by Jenkins, ensuring a smooth and efficient development workflow.
-
-The `Jenkinsfile` defines the following stages:
-
-1.  **Clone Repositories**: Clones both development (`smart-retail-dev`) and configuration (`smart-retail-config`) repositories.
-2.  **Build Docker Image**: Constructs the Docker image for the application.
-3.  **Push to Docker Hub**: Pushes the newly built image to Docker Hub (`rani19/backend`).
-4.  **Update Kubernetes Manifests**: Modifies Kubernetes deployment configurations.
-5.  **Commit & Push Changes**: Commits updated manifests and pushes them to the Git repository.
-6.  **Trigger ArgoCD Sync**: Initiates an ArgoCD synchronization, leveraging GitOps principles for deployment.
-
-<!-- end list -->
-
-  * Pipelines for both backend and frontend are located at:
-      * `Jenkins_Backend/Jenkinsfile`
-      * `Jenkins_Frontend/Jenkinsfile`
-
------
-
-##  Repository Structure
+## Repository Structure
 
 ```
 smart-retail-dev/
 ├── backend/
-│   ├── app.py               # Main Flask application with REST API endpoints
-│   ├── models.py            # Database models for products and restock logs
-│   ├── app_config.py        # Application configuration, including database settings and environment variables
-│   ├── Dockerfile           # Dockerfile for building the Flask backend container
-│   ├── requirements.txt     # Python dependency list
-│   └── seed.py              # (Optional) Script to populate the database with initial data
+│   ├── app.py             # Flask API with all endpoints
+│   ├── models.py          # SQLAlchemy models: Product, RestockLog
+│   ├── app_config.py      # Environment and DB configuration
+│   ├── Dockerfile         # Backend Docker build
+│   ├── requirements.txt   # Python dependencies
+│   └── seed.py            # Optional DB seeding script
 │
 ├── frontend/
-│   ├── src/                 # React TypeScript (TSX) components for the user interface
-│   ├── Dockerfile           # Dockerfile for building the React frontend container
-│   └── vite.config.ts       # Vite configuration, including proxy settings to the backend
+│   ├── src/               # React components (TSX)
+│   ├── Dockerfile         # Frontend container build
+│   └── vite.config.ts     # Vite config and proxy setup
 │
 ├── scripts/
-│   ├── failover-check.sh    # Script to detect backend service failures
-│   ├── start-dev.sh         # Helper script for development environment setup (e.g., port forwarding)
-│   └── auto-forward.sh      # Automation script for port forwarding or other recurring tasks
+│   ├── failover-check.sh  # DR failover monitoring script
+│   ├── start-dev.sh       # Dev environment setup (e.g. port forwarding)
+│   └── auto-forward.sh    # Auto-forwarding helper
 │
-├── docker-compose.yml       # Docker Compose configuration for orchestrating the full application stack
-└── README.md                # This README file
+├── docker-compose.yml     # Full stack orchestration
+└── README.md              # Project documentation
 ```
 
------
+---
 
-##  Useful Links
+## Useful Links
 
-  * **Development Repository**: [https://github.com/RaniSaed/smart-retail-dev](https://github.com/RaniSaed/smart-retail-dev)
-  * **Configuration Repository**: [https://github.com/RaniSaed/smart-retail-config](https://github.com/RaniSaed/smart-retail-config)
-  * **Docker Hub Profile**: [https://hub.docker.com/u/rani19](https://hub.docker.com/u/rani19)
+- Dev Repository: [https://github.com/RaniSaed/smart-retail-dev](https://github.com/RaniSaed/smart-retail-dev)  
+- Docker Hub: [https://hub.docker.com/u/rani19](https://hub.docker.com/u/rani19)
 
------
+---
 
-##  Author
+## Author
 
-**Rani Saed**
-DevOps Engineer | Cloud & Kubernetes Enthusiast
-
-  * **Email**: [Rani.saed19@gmail.com](mailto:Rani.saed19@gmail.com)
-  * **LinkedIn**: [https://www.linkedin.com/in/rani-saed](https://www.linkedin.com/in/rani-saed)
-
-<!-- end list -->
-
-```
-```
+**Rani Saed**  
+DevOps Engineer | Cloud & Kubernetes Enthusiast  
+Email: [Rani.saed19@gmail.com](mailto:Rani.saed19@gmail.com)  
+LinkedIn: [https://www.linkedin.com/in/rani-saed](https://www.linkedin.com/in/rani-saed)
