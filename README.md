@@ -1,163 +1,187 @@
 
+---
+
 ````markdown
 # Smart Retail Inventory System
 
-**Real-time inventory management, analytics, and disaster recovery system**<br>
-Built with `Flask`, `PostgreSQL`, `Docker`, `Kubernetes`, `Prometheus`, and `Jenkins`
+Real-time inventory management with analytics, restock automation, and disaster recovery  
+Built with `Flask`, `React`, `PostgreSQL`, `Docker`, `Kubernetes`, `Jenkins`, `Prometheus`, and `Grafana`.
 
 ---
 
 ## Features
 
-* **Inventory Management** – Full CRUD API using Flask + PostgreSQL
-* **Restocking Operations** – Track restock events with audit trail
-* **Low-Stock Alerts** – Automatically flag items below threshold
-* **Analytics & Trends** – Visualize inventory movement and trends
-* **Purchase Flow** – Deduct stock in real-time after purchase
-* **Containerized** – Docker-first approach with `docker-compose`
-* **Cloud-Ready** – Kubernetes manifests + ArgoCD GitOps support
-* **Monitoring** – Prometheus metrics & Grafana dashboards
-* **CI/CD** – Jenkins-based automated pipeline
+- Inventory CRUD API – Built with Flask & PostgreSQL  
+- Restocking Workflow – With full audit trail & logs  
+- Low-Stock Alerts – Auto-flag products below threshold  
+- Analytics & Trends – Track product stock changes over time  
+- Purchase Flow – Reduce stock after each purchase  
+- Containerized – Dockerized with Compose support  
+- Cloud-Ready – Kubernetes manifests + ArgoCD GitOps  
+- Monitoring – Prometheus metrics & Grafana dashboards  
+- CI/CD – Automated Jenkins pipelines (build, push, deploy)
 
 ---
 
 ## Tech Stack
 
-| Layer            | Technology                                      |
-|--------------------|---------------------------------------------------|
-| API                | Python 3.9 · Flask · Flask-RESTful               |
-| Database           | PostgreSQL                                        |
-| Containerization   | Docker · Docker Compose                          |
-| Orchestration      | Kubernetes (Minikube / EC2) · ArgoCD (GitOps)    |
-| Cloud              | AWS EC2 · GitOps-ready for EKS                   |
-| Observability      | Prometheus · Grafana · Alertmanager              |
-| CI/CD              | Jenkins (Dockerized)                             |
+| Layer             | Technologies                                               |
+|------------------|------------------------------------------------------------|
+| API & Backend     | Python 3.9 · Flask · Flask-RESTful                         |
+| Frontend (User)   | React · TypeScript · Tailwind CSS · React Query            |
+| Database          | PostgreSQL                                                 |
+| Containerization  | Docker · Docker Compose                                    |
+| Orchestration     | Kubernetes (Minikube) · ArgoCD (GitOps)                    |
+| Cloud             | AWS EC2 (DR-ready)                                         |
+| Monitoring        | Prometheus · Grafana · Alertmanager                        |
+| CI/CD             | Jenkins (Dockerized)                                       |
 
 ---
 
-## Quick Start
+## Quick Start (Dev)
 
 ```bash
-# Clone the repository
-git clone [https://github.com/RaniSaed/smart-retail-dev.git](https://github.com/RaniSaed/smart-retail-dev.git)
+git clone https://github.com/RaniSaed/smart-retail-dev.git
 cd smart-retail-dev/backend
 
-# Set up Python environment
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 
-# Run the API
-python app.py  # visit: http://localhost:5000
+python app.py  # Run on http://localhost:5000
 ````
 
------
+---
 
 ## Docker Setup
 
 ```bash
-# Build backend image
+# Backend only
 docker build -t rani19/backend .
-
-# Run container
 docker run -p 5000:5000 rani19/backend
 
-# Or use full stack (Backend + PostgreSQL + Frontend + pgAdmin)
+# Full stack (backend + frontend + db + pgAdmin)
 docker-compose up
 ```
 
------
+---
 
 ## API Reference
 
-### Inventory
+### /api/products
 
-| Method | Endpoint                                  | Description                         |
-|--------|-------------------------------------------|-------------------------------------|
-| GET    | /api/products                             | Get all products                    |
-| POST   | /api/products                             | Add a new product                   |
-| GET    | /api/products/\<id\>                        | Get a specific product              |
-| PUT    | /api/products/\<id\>                        | Update a specific product           |
-| DELETE | /api/products/\<id\>                        | Delete a product                    |
-| POST   | /api/products/\<id\>/restock                | Restock a product                   |
-| GET    | /api/products/low-stock                   | Get low-stock products              |
-| GET    | /api/restocks                             | Get latest restock logs             |
-| GET    | /api/dashboard/summary                    | Get dashboard summary               |
-| GET    | /health                                   | App health check                    |
-| GET    | /metrics                                  | Prometheus metrics endpoint         |
+| Method | Description       |
+| ------ | ----------------- |
+| GET    | Get all products  |
+| POST   | Add a new product |
 
-### Restocking
+### /api/products/<id>
 
-| Method | Endpoint                     | Description           |
-|--------|------------------------------|-----------------------|
-| POST   | /api/products/\<id\>/restock   | Add stock quantity    |
+| Method | Description          |
+| ------ | -------------------- |
+| GET    | Get product by ID    |
+| PUT    | Update product by ID |
+| DELETE | Delete product by ID |
 
-### Analytics
+### /api/products/<id>/restock
 
-| Method | Endpoint                        | Description          |
-|--------|----------------------------------|----------------------|
-| GET    | /api/products/low-stock         | Get low stock items  |
-| GET    | /api/analytics/stock-trends     | Get stock trends     |
+| Method | Description                |
+| ------ | -------------------------- |
+| POST   | Add restock log + quantity |
 
-Metrics are available at `/metrics` for Prometheus scraping.
+### Analytics & Monitoring
 
------
+| Endpoint                    | Description                 |
+| --------------------------- | --------------------------- |
+| /api/products/low-stock     | Get low-stock products      |
+| /api/analytics/stock-trends | Visualize product trends    |
+| /metrics                    | Prometheus metrics endpoint |
+| /health                     | App health check            |
 
-## Deployment
+---
 
-### Kubernetes
+## Kubernetes Deployment
 
 ```bash
 kubectl apply -f k8s/
 kubectl get all -l app=smart-retail-backend
 ```
 
-### AWS EC2 (Demo)
+> Includes Deployments, Services, ConfigMaps, and Ingress
 
-```bash
-docker pull rani19/backend:latest
-docker run -p 5000:5000 -e DATABASE_URL=<your_postgres_url> rani19/backend
-```
+---
 
------
+## Monitoring & Alerting
 
-## Monitoring & Observability
+| Component        | Tool            | Description              |
+| ---------------- | --------------- | ------------------------ |
+| API Metrics      | Prometheus      | Track requests & latency |
+| Resource Usage   | Node Exporter   | Monitor CPU / Memory     |
+| Inventory Alerts | Custom Exporter | Trigger low-stock alerts |
+| Dashboards       | Grafana         | Visual panels            |
+| Alerts           | Alertmanager    | Email notifications      |
 
-| Metric            | Source              | Grafana Panel        |
-|-------------------|---------------------|-----------------------|
-| API Latency       | Prometheus Exporter | `API Latency (ms)`    |
-| CPU / Memory      | Node Exporter       | `Container Resources` |
-| Low-stock alerts  | Custom Exporter     | `Inventory Health`    |
+---
 
------
+## CI/CD Pipeline (Jenkins)
+
+Jenkinsfile stages:
+
+1. Clone Dev & Config repositories
+2. Build Docker image
+3. Push to Docker Hub (`rani19/backend`)
+4. Update Kubernetes manifests
+5. Commit & push changes
+6. Trigger ArgoCD sync via GitOps
+
+> Pipelines are stored under `Jenkins_Backend/Jenkinsfile` and `Jenkins_Frontend/Jenkinsfile`
+
+---
 
 ## Repository Structure
 
 ```txt
-├── backend/               # Flask backend (API, models, config)
-│   ├── app.py             # Main application with all routes
-│   ├── models.py          # SQLAlchemy models: Product, RestockLog, etc.
-│   ├── app_config.py      # Configuration (DB, ENV, etc.)
-│   ├── requirements.txt   # Python dependencies
-│   ├── Dockerfile         # Backend Docker image definition
-│   └── seed.py            # Optional: seed initial DB data
+smart-retail-dev/
+├── backend/
+│   ├── app.py               # Flask app with REST API
+│   ├── models.py            # Product & Restock models
+│   ├── app_config.py        # DB config & env vars
+│   ├── Dockerfile           # Flask container
+│   ├── requirements.txt     # Python deps
+│   └── seed.py              # Optional: populate DB
 │
-├── frontend/              # React + TypeScript frontend
-│   ├── src/               # Main source code (components, pages, logic)
-│   ├── public/            # Static assets
-│   ├── package.json       # Frontend dependencies
-│   ├── vite.config.ts     # Vite dev/build config
-│   ├── tailwind.config.ts # Tailwind CSS settings
-│   └── Dockerfile         # Frontend Docker image
+├── frontend/
+│   ├── src/                 # React TSX components
+│   ├── Dockerfile           # Frontend container
+│   └── vite.config.ts       # Proxy config to backend
 │
-├── scripts/               # DevOps & monitoring scripts
-│   ├── start-dev.sh       # Port forwarding & startup
-│   ├── failover-check.sh  # Failover logic between primary/DR
-│   └── auto-forward.sh    # Auto forward ports on startup
+├── scripts/
+│   ├── failover-check.sh    # Detect backend failure
+│   ├── start-dev.sh         # Port forwarding helpers
+│   └── auto-forward.sh      # Script automation
 │
-├── docker-compose.yml     # Orchestrates full app (frontend + backend + db)
-├── README.md              # Project documentation
-└── jenkins_data/          # Jenkins persistent data (volume bind)
+├── docker-compose.yml       # Full stack orchestrator
+└── README.md
 ```
 
+---
+
+## Useful Links
+
+* Dev Repository: [https://github.com/RaniSaed/smart-retail-dev](https://github.com/RaniSaed/smart-retail-dev)
+* Config Repository: [https://github.com/RaniSaed/smart-retail-config](https://github.com/RaniSaed/smart-retail-config)
+* Docker Hub: [https://hub.docker.com/u/rani19](https://hub.docker.com/u/rani19)
+* Grafana Dashboards: [http://localhost:3001](http://localhost:3001) (login: admin/admin)
+
+---
+
+## Author
+
+Rani Saed
+DevOps Engineer | Cloud & Kubernetes Enthusiast
+Email: [Rani.saed19@gmail.com](mailto:Rani.saed19@gmail.com)
+LinkedIn: [https://www.linkedin.com/in/rani-saed](https://www.linkedin.com/in/rani-saed)
+
 ```
-```
+
+---
+
