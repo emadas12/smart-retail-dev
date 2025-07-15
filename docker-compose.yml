@@ -1,9 +1,10 @@
 version: '3.8'
 
 services:
+  # PostgreSQL database service
   db:
     image: postgres:15
-    container_name: gogo-main-db-1
+    container_name: gogo-main-db
     restart: always
     environment:
       POSTGRES_USER: postgres
@@ -16,6 +17,7 @@ services:
     networks:
       - gogo-net
 
+  # pgAdmin 4 service
   pgadmin:
     image: dpage/pgadmin4
     container_name: gogo-pgadmin
@@ -30,42 +32,54 @@ services:
     networks:
       - gogo-net
 
-  jenkins:
-    build:
-      context: ../smart-retail-config/jenkins
-      dockerfile: Dockerfile
-    container_name: gogo-jenkins
-    restart: unless-stopped
-    user: root
-    ports:
-      - "8081:8080"
-      - "50000:50000"
-    environment:
-      - JAVA_OPTS=-Djenkins.install.runSetupWizard=false
-    volumes:
-      - ./jenkins_data:/var/jenkins_home
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ../smart-retail-config/kubeconfig:/root/.kube/config
-    privileged: true
-    networks:
-      - gogo-net
-
+  # Main Backend service
   backend:
     build:
       context: ./backend
-      dockerfile: Dockerfile
     container_name: gogo-backend
-    restart: always
+    restart: unless-stopped
     ports:
-      - "5000:5000"
+      - "5001:5000"
     environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_NAME=shop_inventory
-      - DB_USER=postgres
-      - DB_PASSWORD=12345678
+      - DATABASE_URL=postgresql://postgres:12345678@db:5432/shop_inventory
     depends_on:
       - db
+    networks:
+      - gogo-net
+
+  # Main Frontend service
+  frontend:
+    image: rani19/gogo-main-frontend:latest
+    container_name: gogo-main-frontend
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    environment:
+      - VITE_API_URL=http://gogo-backend:5000/api
+    networks:
+      - gogo-net
+
+  # DR Backend service
+  dr-backend:
+    image: rani19/backend:latest
+    container_name: gogo-dr-backend
+    restart: unless-stopped
+    ports:
+      - "5002:5000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:12345678@db:5432/shop_inventory
+    networks:
+      - gogo-net
+
+  # DR Frontend service
+  dr-frontend:
+    image: rani19/gogo-main-frontend:latest
+    container_name: gogo-dr-frontend
+    restart: unless-stopped
+    ports:
+      - "3002:80"
+    environment:
+      - VITE_API_URL=http://gogo-dr-backend:5000/api
     networks:
       - gogo-net
 
@@ -75,4 +89,4 @@ volumes:
 
 networks:
   gogo-net:
-    driver: bridge
+    external: true
