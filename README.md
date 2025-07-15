@@ -170,7 +170,7 @@ smart-retail-dev/
 ## Useful Links
 
 - Dev Repository: [https://github.com/emadas12/smart-retail-config.git](https://github.com/emadas12/smart-retail-config.git)  
-- Docker Hub: [https://hub.docker.com/repositories/emadas](https://hub.docker.com/repositories/emadas)
+- Docker Hub: [https://hub.docker.com/u/emadas](https://hub.docker.com/u/emadas)
 
 ---
 
@@ -179,4 +179,5 @@ smart-retail-dev/
 **Emad Asad**  
 DevOps Engineer | Python Developer   
 Email: [matsm.asad@gmail.com](mailto:matsm.asad@gmail.com)  
-LinkedIn: [https://www.linkedin.com/in/emad-asad](linkedin.com/in/emad-asad-7a3271227)
+[Connect with me on LinkedIn](https://www.linkedin.com/in/emad-asad-7a3271227)
+
