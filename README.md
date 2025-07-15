@@ -1,5 +1,7 @@
 # Smart Retail Inventory System
-
+This project was built collaboratively by:
+Emad Asad
+Rani Saed/ https://github.com/RaniSaed
 ---
 
 **A cloud-native inventory control platform for modern retail**  
