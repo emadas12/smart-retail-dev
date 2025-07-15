@@ -170,7 +170,7 @@ smart-retail-dev/
 ## Useful Links
 
 - Dev Repository: [https://github.com/emadas12/smart-retail-config.git](https://github.com/emadas12/smart-retail-config.git)  
-- Docker Hub: [https://hub.docker.com/repositories/emadas](https://hub.docker.com/repositories/emadas)
+- Docker Hub: [https://hub.docker.com/u/emadas](https://hub.docker.com/u/emadas)
 
 ---
 
