@@ -171,8 +171,13 @@ smart-retail-dev/
 
 ## Useful Links
 
-- Dev Repository: [https://github.com/emadas12/smart-retail-config.git](https://github.com/emadas12/smart-retail-config.git)  
-- Docker Hub: [https://hub.docker.com/u/emadas](https://hub.docker.com/u/emadas)
+- **Emad Asad** – DevSecOps Engineer | Backend Developer  
+  [GitHub](https://github.com/emadas12) · [Docker Hub](https://hub.docker.com/u/emadas) · [LinkedIn](https://www.linkedin.com/in/emad-asad-7a3271227)
+
+- **Rani Saed** – DevSecOps Engineer | Full Stack Developer  
+  [GitHub](https://github.com/RaniSaed) · [Docker Hub](https://hub.docker.com/u/rani19)
+
+We worked together on designing and implementing the **Smart Retail Inventory System**, building its backend, frontend, CI/CD pipelines, containerized infrastructure, and Kubernetes deployment for high availability and scalability.
 
 ---
 
