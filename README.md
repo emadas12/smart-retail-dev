@@ -179,4 +179,4 @@ smart-retail-dev/
 **Emad Asad**  
 DevOps Engineer | Python Developer   
 Email: [matsm.asad@gmail.com](mailto:matsm.asad@gmail.com)  
-LinkedIn: [https://www.linkedin.com/in/emad-asad](linkedin.com/in/emad-asad-7a3271227)
+LinkedIn: [https://www.linkedin.com/in/emad-asad-7a3271227](linkedin.com/in/emad-asad-7a3271227)
