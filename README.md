@@ -60,8 +60,8 @@ python app.py  # Visit: http://localhost:5000
 ### Backend Only
 
 ```bash
-docker build -t rani19/backend .
-docker run -p 5000:5000 rani19/backend
+docker build -t emadas/backend .
+docker run -p 5000:5000 emadas/backend
 ```
 
 ### Full Stack with Docker Compose

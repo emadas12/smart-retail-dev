@@ -49,7 +49,7 @@ services:
 
   # Main Frontend service
   frontend:
-    image: rani19/gogo-main-frontend:latest
+    image: emadas/gogo-main-frontend:latest
     container_name: gogo-main-frontend
     restart: unless-stopped
     ports:
@@ -61,7 +61,7 @@ services:
 
   # DR Backend service
   dr-backend:
-    image: rani19/backend:latest
+    image: emadas/backend:latest
     container_name: gogo-dr-backend
     restart: unless-stopped
     ports:
@@ -73,7 +73,7 @@ services:
 
   # DR Frontend service
   dr-frontend:
-    image: rani19/gogo-main-frontend:latest
+    image: emadas/gogo-main-frontend:latest
     container_name: gogo-dr-frontend
     restart: unless-stopped
     ports:
